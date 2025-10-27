@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sólidos en Revolución — Mini curso</title>
+  <style>
+    :root {
+      --accent: #0b78d1;
+      --accent-dark: #084d97;
+      --bg: #f3f4f6;
+      --text: #111827;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --shadow: rgba(15,23,42,0.06);
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 32px auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--accent-dark);
+      margin: 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 18px var(--shadow);
+      margin-top: 20px;
+    }
+
+    h2, h3, h4 {
+      color: var(--accent-dark);
+    }
+
+pre {
+      background: #0f1724;
+      color: #e6eef8;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: Menlo, Monaco, monospace;
+    }
+
+
+    .video-wrap {
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: var(--accent-dark);
+    }
+
+    ul, ol {
+      margin: 8px 0 12px 20px;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
+  <!-- MathJax para fórmulas LaTeX -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Sólidos en Revolución</h1>
+        <div class="subtitle">Mini curso — Proyecto final de Cálculo</div>
+      </div>
+    </header>
+
+    <section class="card full">
+      <h2>Descripción del proyecto</h2>
+      <p>Este mini curso explica qué son los <strong>sólidos de revolución</strong>, cómo calcular su volumen mediante integrales y presenta ejemplos, problemas y un programa que resuelve los ejercicios por aproximación numérica.</p>
+    </section>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Contenido del creador</h3>
+        <div class="meta">
+          <p><strong>Nombre:</strong> Marvin Alexander Muñoz González</p>
+          <p><strong>Carnet:</strong> 9941-24-5232</p>
+          <p><strong>Curso:</strong> Cálculo II</p>
+          <p><strong>Descripción breve:</strong> Estudiante de segundo año de la carrera de Ingeniería en Sistemas de Información y Ciencias de la Computación, PORTALES que presenta este mini curso sobre sólidos de revolución.</p>
+        </div>
+
+        <h4>Bibliografía / Recursos</h4>
+        <ul>
+          <li>Stewart — <a href="https://www.stewartcalculus.com" target="_blank" rel="noopener noreferrer">https://www.stewartcalculus.com</a></li>
+          <li>Khan Academy — Volumen por sólidos de revolución: <a href="https://es.khanacademy.org/math/calculus-1/cs1-applications-definite-integrals/cs1-volume-revolution/v/volume-of-solid-of-revolution" target="_blank" rel="noopener noreferrer">https://es.khanacademy.org/...</a></li>
+          <li>GeoGebra — Visualizaciones: <a href="https://www.geogebra.org/m/XypHTZb7" target="_blank" rel="noopener noreferrer">https://www.geogebra.org/</a></li>
+        </ul>
+      </div>
+
+      <aside class="card">
+        <h4>Entrega y fechas</h4>
+        <p>Fecha límite: <strong>26 de octubre de 2025, 23:59</strong></p>
+        <p>Último día de presentación: <strong>26 de octubre de 2025</strong></p>
+        <a class="btn" href="#recursos">Ir a Enlaces para resolver los problemas</a>
+      </aside>
+
+      <section class="card full">
+        <h2>Conceptos y definiciones</h2>
+        <ul>
+          <li><strong>Sólido de revolución:</strong> Un sólido de revolución es un cuerpo tridimensional que se obtiene al girar una figura plana (llamada región generatriz) alrededor de una recta fija denominada eje de revolución. Este tipo de sólidos tiene simetría rotacional y su volumen se puede calcular utilizando métodos del cálculo integral, como los discos, arandelas o casquillos cilíndricos.</li>
+          <li><strong>Región generatriz:</strong> La región generatriz es el área plana delimitada por una o más curvas (o rectas), que al ser rotada completamente (360°) alrededor de un eje, da lugar a un sólido de revolución. Es esencialmente la "forma base" que se transforma en un cuerpo tridimensional al girar.</li>
+          <li><strong>Eje de revolución:</strong> El eje de revolución es la línea recta fija alrededor de la cual se gira la región generatriz para formar el sólido de revolución. Este eje puede estar dentro o fuera de la región generatriz, y su posición influye directamente en la forma final del sólido.</li>
+        </ul>
+
+        <h3>Fórmulas principales</h3>
+        <p>Método de los discos (rotación alrededor del eje \(x\)):</p>
+        <p>\[ V = \pi \int_a^b [f(x)]^2 \, dx \]</p>
+
+        <p>Método de los anillos (hueco):</p>
+        <p>\[ V = \pi \int_a^b \left( [R(x)]^2 - [r(x)]^2 \right) dx \]</p>
+
+        <p>Método de las capas cilíndricas (rotación alrededor del eje \(y\), usando \(x\) como radio):</p>
+        <p>\[ V = 2\pi \int_a^b x\, f(x)\, dx \]</p>
+      </section>
+
+
+	<section class="card full">
+  <h2>Fundamento teórico del cálculo integral en sólidos de revolución</h2>
+  <p>Antes de calcular volúmenes de sólidos de revolución, es importante comprender el papel del <strong>cálculo integral</strong>. Una integral definida representa la suma continua de cantidades infinitesimales, lo que nos permite calcular áreas y volúmenes con precisión.</p>
+
+  <p>En el caso de los sólidos de revolución, la idea fundamental es imaginar que la región bajo una curva se divide en tiras muy delgadas. Al girarlas alrededor de un eje, cada tira forma un <em>disco</em> o un <em>anillo</em>, y la suma infinita de sus volúmenes da como resultado el volumen total del sólido.</p>
+
+  <p>La expresión general es:</p>
+  <p>\[ V = \lim_{n \to \infty} \sum_{i=1}^{n} \pi [f(x_i)]^2 \Delta x = \pi \int_a^b [f(x)]^2 dx \]</p>
+
+  <p>Esta fórmula es la base del método de los discos, y su extensión da lugar al método de los anillos y al de las capas cilíndricas, dependiendo del eje de rotación elegido.</p>
+</section>
+
+
+      <section class="card full">
+        <h2>Ejemplos</h2>
+
+        <article style="margin-bottom:14px">
+          <h4>Ejemplo 1 — Parabola:</h4>
+          <p>Escrito:</p>
+		<p>Encontrar el volumen del sólido generado por la regíon acotada por las gráficas de \(y=\sqrt{x}\), en (0, 4) al girar alrededor del eje X:</p>
+          <p>\[ V = \pi \int_a^b [R(x)]^2 \, dx \]</p>
+                   <div class="video-wrap" style="display:flex;align-items:center;justify-content:center;background:#eef2f7;">
+  <a class="btn" href="https://www.canva.com/design/DAG28yuURLc/watch" target="_blank" rel="noopener noreferrer">
+    Ver video en Canva
+  </a>
+</div>
+
+        </article>
+
+        <article style="margin-bottom:14px">
+          <h4>Ejemplo 2 — Recta (cono):</h4>
+          <p>Escrito:</p>
+		<p>
+  Encontrar el volúmen del sólido generado cuando se gira alrededor del eje <em>X</em> la región acotada por 
+  \( y - x = 3 \)  y  \( x^2 = y - 1 \).
+</p>
+          <p>\[ V = \int_a^b [A(x)] \, dx = \pi R^2\]</p>
+          <div class="video-wrap" style="display:flex;align-items:center;justify-content:center;background:#eef2f7;padding:20px;border-radius:10px;">
+  <a class="btn" href="https://www.canva.com/design/DAG29PLXVe4/B3Mbq9supfMHp6HKCCL6Jg/watch" target="_blank" rel="noopener noreferrer">
+    Ver video en Canva
+  </a>
+</div>
+
+
+        </article>
+
+        <article>
+          <h4>Ejemplo 3 — Semicircunferencia (esfera)</h4>
+          <p>Escrito:</p>
+          <p>Encontrar el volúmen del sólido al girar la región plana alrededor del eje Y, en \(y=\sqrt{x}\), en (0, 4):</p>
+          <p>\[ V = 2\pi \int_a^b x\, P(x) * H(x)\, dx \]</p>
+          <div class="video-wrap" style="display:flex;align-items:center;justify-content:center;background:#eef2f7;padding:20px;border-radius:10px;">
+  <a class="btn" href="https://www.canva.com/design/DAG29O4Kras/pbiogAQpe8gjqM2RADGnEw/watch" target="_blank" rel="noopener noreferrer">
+    Ver video en Canva
+  </a>
+</div>
+
+
+  </a>
+</div>
+
+        </article>
+      </section>
+
+      <section class="card full">
+        <h2>Propuesta de Problemas</h2>
+        <ol>
+          <li>Calcular el volumen al rotar \(y=x^2\) entre \(x=0\) y \(x=2\) alrededor del eje X.</li>
+          <li>Determinar el volumen generado por \(y=\sqrt{x}\) entre \(x=0\) y \(x=4\) alrededor del eje X.</li>
+          <li>Encuentra el volumen de la región limitada por \(y=x\) y \(y=2x-x^2\) al rotar alrededor del eje X.</li>
+        </ol>
+
+        <details>
+          <summary>Soluciones (opcional)</summary>
+          <p><strong>Problema 1:</strong> \(V=\pi\int_0^2 x^4 dx = \pi \left[\frac{x^5}{5}\right]_0^2 = \frac{32\pi}{5}\)</p>
+          <p><strong>Problema 2:</strong> \(V=\pi\int_0^4 (\sqrt{x})^2 dx = \pi\int_0^4 x \, dx = \pi \left[\frac{x^2}{2}\right]_0^4 = 8\pi\)</p>
+          <p><strong>Problema 3:</strong> Intersección: \(x=0\) y \(x=1\) (resolver \(x=2x-x^2\) -> \(x^2-x=0\) -> x=0,1). Luego \(V=\pi\int_0^1 ([2x-x^2]^2 - [x]^2) dx\)</p>
+        </details>
+      </section>
+
+	<section class="card full">
+  <h2>Aplicaciones reales de los sólidos de revolución</h2>
+  <p>Los sólidos de revolución no son solo un concepto matemático, sino una herramienta fundamental en múltiples campos de la ciencia y la ingeniería:</p>
+
+  <ul>
+    <li><strong>Ingeniería mecánica:</strong> Cálculo del volumen y peso de piezas rotacionales, como ejes, engranajes o pistones.</li>
+    <li><strong>Arquitectura:</strong> Diseño de estructuras con formas cilíndricas, cónicas o esféricas (cúpulas, torres, columnas).</li>
+    <li><strong>Medicina:</strong> Modelado 3D de órganos o vasos sanguíneos a partir de cortes bidimensionales.</li>
+    <li><strong>Industria química:</strong> Determinación de la capacidad de tanques de almacenamiento y recipientes presurizados.</li>
+    <li><strong>Informática y gráficos 3D:</strong> Generación de objetos tridimensionales mediante rotación de perfiles (en software CAD o Blender).</li>
+  </ul>
+
+  <p>Estas aplicaciones muestran cómo el cálculo integral permite transformar conceptos abstractos en herramientas útiles para resolver problemas reales.</p>
+</section>
+
+
+
+
+
+      <section class="card full">
+        <h2>Programa de resolución (C++)</h2>
+        <p>Programa que aproxima el volumen mediante la regla de Simpson (puedes cambiar la función <code>f</code> por la que necesites):</p>
+        <pre><code>// Programa: aproximar volumen por método de Simpson
+#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+using namespace std;
+
+double f(double x) {
+    return x * x; // ejemplo: y = x^2
+}
+
+double volumen(double a, double b, int n) {
+    if (n % 2 != 0) n++; // Simpson requiere n par
+    double h = (b - a) / n;
+    double suma = f(a)*f(a) + f(b)*f(b);
+    for (int i = 1; i &lt; n; i++) {
+        double x = a + i * h;
+        double fx2 = f(x) * f(x);
+        if (i % 2 == 0) suma += 2 * fx2;
+        else suma += 4 * fx2;
+    }
+    return M_PI * (h / 3.0) * suma;
+}
+
+int main() {
+    double a, b;
+    int n = 1000;
+    cout &lt;&lt; "Ingrese limite inferior (a): "; cin &gt;&gt; a;
+    cout &lt;&lt; "Ingrese limite superior (b): "; cin &gt;&gt; b;
+    double V = volumen(a, b, n);
+    cout &lt;&lt; "Volumen aproximado: " &lt;&lt; V &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+
+        <p>Notas: reemplaza la función <code>f</code> para resolver distintos ejemplos.</p>
+        <p>El propósito del código es calcular el volumen aproximado de un sólido de revolución, es decir, el cuerpo que se genera al girar la curva \(y=f(x)\) alrededor del eje X entre los límites \(a\) y \(b\).</p>
+      </section>
+
+	
+	<section class="card full">
+  <h2>Autoevaluación del curso</h2>
+  <p>Pon a prueba lo aprendido con las siguientes preguntas:</p>
+  <ol>
+    <li>¿Qué representa geométricamente una integral definida en el contexto de los sólidos de revolución?</li>
+    <li>¿Qué método usarías para calcular el volumen de un sólido generado al girar una región alrededor del eje <em>y</em>?</li>
+    <li>¿Cuál es la diferencia entre el método de los discos y el método de las capas cilíndricas?</li>
+    <li>Calcula el volumen del sólido generado al rotar \(y = 1/x\) en el intervalo \([1, 2]\) alrededor del eje X.</li>
+  </ol>
+
+  <details>
+    <summary><strong>Respuestas sugeridas</strong> (haz clic para ver)</summary>
+    <ul>
+      <li>1️⃣ Representa la suma continua del volumen de discos infinitesimales generados al girar la región.</li>
+      <li>2️⃣ El método de las capas cilíndricas, ya que el eje de rotación es vertical (eje Y).</li>
+      <li>3️⃣ Los discos usan secciones perpendiculares al eje, mientras que las capas cilíndricas usan secciones paralelas.</li>
+      <li>4️⃣ \( V = \pi \int_1^2 (1/x)^2 dx = \pi \left[ -1/x \right]_1^2 = \frac{\pi}{2} \)</li>
+    </ul>
+  </details>
+</section>
+
+
+<section id="recursos" class="card full">
+  <h2>Recursos para resolver problemas de sólidos de revolución</h2>
+  <p>Si no cuentas con un ejecutor de C++ o deseas visualizar los sólidos y calcular volúmenes rápidamente, puedes usar estas páginas web:</p>
+  <ul>
+    <li><strong>GeoGebra 3D:</strong> Permite graficar la región generatriz y visualizar el sólido en 3D. <a href="https://www.geogebra.org/3d" target="_blank" rel="noopener noreferrer">https://www.geogebra.org/3d</a></li>
+    <li><strong>WolframAlpha:</strong> Calculadora simbólica que resuelve volúmenes de sólidos de revolución y muestra pasos. <a href="https://www.wolframalpha.com/" target="_blank" rel="noopener noreferrer">https://www.wolframalpha.com/</a></li>
+    <li><strong>Symbolab:</strong> Calculadora paso a paso para integrales y volúmenes. <a href="https://www.symbolab.com/" target="_blank" rel="noopener noreferrer">https://www.symbolab.com/</a></li>
+    <li><strong>Desmos:</strong> Graficador interactivo, útil para ver la curva y aproximaciones visuales. <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener noreferrer">https://www.desmos.com/calculator</a></li>
+    <li><strong>CalcPlot3D:</strong> Visualización de sólidos y superficies 3D, muy útil para entender la rotación. <a href="https://www.calcplot3d.com/" target="_blank" rel="noopener noreferrer">https://www.calcplot3d.com/</a></li>
+  </ul>
+  <p>Estas herramientas te permiten practicar, visualizar y verificar tus cálculos sin necesidad de compilar código.</p>
+</section>
+
+
+    <footer>
+      <p>© 2025 Mini curso de Sólidos de Revolución. MARVIN ALEXANDER MUÑOZ GONZÁLEZ - CALCULO II.</p>
+    </footer>
+  </div>
+</body>
+</html>
